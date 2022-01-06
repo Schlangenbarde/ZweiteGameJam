@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-5603649656d68c7cea0bb31def2c8dd8.stex"
+path="res://.import/MageDesign.png-8255454d9eb34fe89d7d438eedf908b2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GODOTBILD/icon.png"
-dest_files=[ "res://.import/icon.png-5603649656d68c7cea0bb31def2c8dd8.stex" ]
+source_file="res://Sprites/Player/MageDesign.png"
+dest_files=[ "res://.import/MageDesign.png-8255454d9eb34fe89d7d438eedf908b2.stex" ]
 
 [params]
 
