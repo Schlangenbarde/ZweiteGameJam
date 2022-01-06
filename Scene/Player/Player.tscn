@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Sprites/Player/MageDesign.png" type="Texture" id=1]
 [ext_resource path="res://Skripts/Player/Player.gd" type="Script" id=2]
@@ -17,19 +17,19 @@ animations = [ {
 } ]
 
 [sub_resource type="Animation" id=3]
-resource_name = "AllowShot"
-length = 0.2
+resource_name = "LoadShot"
+length = 3.0
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:fireCooldown")
+tracks/0/path = NodePath(".:yValue")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ 300, 200, 0 ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -65,18 +65,19 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=4]
-length = 3.0
+resource_name = "AllowShot"
+length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:yValue")
+tracks/0/path = NodePath(".:fireCooldown")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 300, 200, 10 ]
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -95,8 +96,23 @@ tracks/0/keys = {
 "values": [ false, true ]
 }
 
+[sub_resource type="Animation" id=10]
+resource_name = "reload_scene"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 40.1338, 199.232 )
+extents = Vector2( 67.7844, 199.232 )
 
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 125.555, 171.47 )
@@ -121,13 +137,14 @@ anims/DisableMelee = SubResource( 7 )
 anims/GotDamaged = SubResource( 8 )
 anims/LoadShot = SubResource( 4 )
 anims/PlayerMelee = SubResource( 5 )
+anims/reload_scene = SubResource( 10 )
 
 [node name="Melee" type="Area2D" parent="."]
 collision_layer = 32
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Melee"]
-position = Vector2( 167.565, -3.46267 )
+position = Vector2( 195.216, -3.46267 )
 shape = SubResource( 6 )
 disabled = true
 
