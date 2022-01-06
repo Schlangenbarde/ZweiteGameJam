@@ -1,9 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Skripts/Shooting/Bullets/FireBall.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Weapon/Bullets/FireBall.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 69.987, 7.146 )
+extents = Vector2( 31.0857, 14.4413 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "BulletDestroy"
@@ -28,6 +29,9 @@ collision_layer = 2
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
