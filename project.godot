@@ -12,7 +12,11 @@ config_version=4
 
 config/name="Zweite Game Jam"
 run/main_scene="res://Scene/Game/Main Scene.tscn"
-config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1920
+window/size/height=1020
 
 [input]
 
@@ -44,6 +48,14 @@ Shoot={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="PlayerBullets"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="EnemyBullets"
+2d_physics/layer_5="Plattforms"
 
 [physics]
 
