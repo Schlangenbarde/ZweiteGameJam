@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Sprites/Player/MageDesign.png" type="Texture" id=1]
 [ext_resource path="res://Skripts/Player/Player.gd" type="Script" id=2]
@@ -16,7 +16,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "AllowShot"
 length = 0.2
 tracks/0/type = "value"
@@ -32,8 +32,23 @@ tracks/0/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "LoadShot"
+[sub_resource type="Animation" id=7]
+resource_name = "DisableMelee"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Melee/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=4]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:yValue")
@@ -45,8 +60,27 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 300, 200, 0 ]
+"values": [ 300, 200, 10 ]
 }
+
+[sub_resource type="Animation" id=5]
+resource_name = "PlayerMelee"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Melee/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 40.1338, 199.232 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 16
@@ -66,5 +100,17 @@ position = Vector2( 132.956, 1.97046 )
 Bullet = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/AllowShot = SubResource( 4 )
-anims/LoadShot = SubResource( 3 )
+anims/AllowShot = SubResource( 3 )
+anims/DisableMelee = SubResource( 7 )
+anims/LoadShot = SubResource( 4 )
+anims/PlayerMelee = SubResource( 5 )
+
+[node name="Melee" type="Area2D" parent="."]
+position = Vector2( 154.174, 7.34163 )
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Melee"]
+position = Vector2( 3.77548, -1.88776 )
+shape = SubResource( 6 )
+disabled = true
