@@ -2,8 +2,11 @@ extends KinematicBody2D
 
 #Imports From Scene
 onready var AnimSprite = $AnimatedSprite
-onready var Weapon = $Weapon
+onready var Weapon = $WeaponNode/Weapon
 onready var AnimPlayer = $AnimationPlayer
+onready var LifeUI = $Label
+onready var MeleeBox = $Melee
+onready var WeaponNode = $WeaponNode
 
 #PlayerStats
 var speed = 10
@@ -21,9 +24,12 @@ var gravity = 400
 var UpVector = Vector2(0, -1)
 
 func _ready():
+	LifeUI.text = "Lifes: " + str(PlayerLifes)
+	randomize()
 	fireCooldown = true
 
 func _physics_process(delta):
+	CheckLifes()
 	MovementLeftandRight()
 	PlayerGravity(delta)
 	PlayerShoot()
@@ -33,14 +39,19 @@ func _physics_process(delta):
 	#move_and_slide(currentSpeed, UpVector)
 
 
+
 func MovementLeftandRight():
 	if Input.is_action_pressed("Left"):
 		currentSpeed.x += -1 * speed
 		AnimSprite.flip_h = false
+		MeleeBox.scale.x = -1
+		WeaponNode.scale.x = -1
 	
 	if Input.is_action_pressed("Right"):
 		currentSpeed.x += 1 * speed
 		AnimSprite.flip_h = true
+		MeleeBox.scale.x = 1
+		WeaponNode.scale.x = 1
 	
 	PlayerSpeedControll()
 
@@ -72,15 +83,14 @@ func PlayerShoot():
 		AnimPlayer.stop(true)
 		fireCooldown = false
 		AnimPlayer.play("AllowShot")
-		for i in range(0,5):
-			Weapon.shoot(xSpeed, rand_range(yValue, yValue * -1), 90)
+		Weapon.shoot(xSpeed, rand_range(yValue, yValue * -1), 90)
 	
 	if Input.is_action_just_pressed("PlayerMelee") and fireCooldown and !Input.is_action_pressed("Right") and !Input.is_action_pressed("Left") and is_on_floor(): 
 		AnimPlayer.play("PlayerMelee")
+	
 	if Input.is_action_just_released("PlayerMelee") and AnimPlayer.is_playing():
 		AnimPlayer.stop(true)
 		AnimPlayer.play(("DisableMelee"))
-		print("BREAK")
 
 func AnimationController():
 	if abs(currentSpeed.x) > 0.1:
@@ -88,3 +98,15 @@ func AnimationController():
 		#AnimSprite.play("Run")
 	else:
 		AnimSprite.play("Idle")
+
+func GetDamage(i):
+	PlayerLifes -= i
+	LifeUI.text = "Lifes: " + str(PlayerLifes)
+
+func CheckLifes():
+	if PlayerLifes == 0:
+		queue_free()
+
+func _on_Area2D_body_entered(body):
+	AnimPlayer.play("GotDamaged")
+	GetDamage(1)
